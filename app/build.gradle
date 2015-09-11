@@ -12,7 +12,8 @@ android {
         versionName "1.0"
 
         testApplicationId "com.androidsx.myapplication.test"
-        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+        //testInstrumentationRunner "android.test.InstrumentationTestRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -24,4 +25,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    androidTestCompile 'com.android.support.test:runner:0.3'
 }
