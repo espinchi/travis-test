@@ -33,7 +33,7 @@ before_script:
   - adb wait-for-device
   - adb shell input keyevent 82 &
 
-script: ./gradlew connectedAndroidTest
+script: ./gradlew --info connectedAndroidTest
 
 # run tests  against the JVM. See http://stackoverflow.com/questions/26643444/travis-ci-android-tests-with-gradle-keep-timing-out
 #- ./gradlew test
