@@ -1,6 +1,14 @@
 language: android
 jdk: oraclejdk7
 
+# Turn off caching to avoid any caching problems
+cache: false
+# Use the Travis Container-Based Infrastructure
+sudo: false
+
+env:
+  # In minutes. The default is 2
+  - ADB_INSTALL_TIMEOUT=8
 
 android:
   components:
