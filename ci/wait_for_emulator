@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# From https://github.com/andrewhr/rxjava-android-example
+# Originally written by Ralf Kistner <ralf@embarkmobile.com>, but placed in the public domain
+
+set +e
 
 bootanim=""
 failcounter=0
@@ -9,7 +11,7 @@ until [[ "$bootanim" =~ "stopped" ]]; do
    echo "$bootanim"
    if [[ "$bootanim" =~ "not found" ]]; then
       let "failcounter += 1"
-      if [[ $failcounter -gt 3 ]]; then
+      if [[ $failcounter -gt 15 ]]; then
         echo "Failed to start emulator"
         exit 1
       fi

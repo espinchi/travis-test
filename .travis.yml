@@ -44,7 +44,8 @@ before_script:
   - emulator -avd test -no-skin -no-audio -no-window &
 
 script:
-  - ./wait_for_emulator
+  # Wait for the emulator for $ADB_INSTALL_TIMEOUT minutes. Usually done with "adb wait-for-device"
+  - ./ci/wait_for_emulator
   # Connect and run the tests
   - ./gradlew connectedCheck -PdisablePreDex
   - ./gradlew --info connectedAndroidTest
