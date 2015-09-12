@@ -27,6 +27,8 @@ android:
     - sys-img-x86-android-17
 
 before_script:
+  # Clean everything (http://stackoverflow.com/questions/8267354/install-exception-device-not-found-android)
+  - ./gradlew clean build
   # Create and start emulator
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
