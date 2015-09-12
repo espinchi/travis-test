@@ -15,8 +15,8 @@ android:
   components:
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
-    # - platform-tools
-    # - tools
+    - platform-tools
+    - tools
 
     # The BuildTools version used by your project
     - build-tools-21.1.2
@@ -25,6 +25,7 @@ android:
     - android-21
 
     # Additional components
+    - extra-android-support
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
@@ -32,20 +33,24 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-21
-    - sys-img-x86-android-17
+    #- sys-img-armeabi-v7a-android-21
+    #- sys-img-x86-android-17
+    - sys-img-armeabi-v7a-addon-google_apis-google-21
 
 before_script:
   # Clean everything (http://stackoverflow.com/questions/8267354/install-exception-device-not-found-android)
-  - ./gradlew clean build
+  #- ./gradlew clean build
   # Create and start emulator
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"21 --abi google_apis/armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   #- ./ci/wait_for_emulator
-  - adb wait-for-device
-  - adb shell input keyevent 82 &
+  #- adb wait-for-device
+  #- adb shell input keyevent 82 &
 
-script: ./gradlew --info connectedAndroidTest
+script:
+  - ./wait_for_emulator
+  - ./gradlew connectedCheck -PdisablePreDex
+  #- ./gradlew --info connectedAndroidTest
 
 # run tests  against the JVM. See http://stackoverflow.com/questions/26643444/travis-ci-android-tests-with-gradle-keep-timing-out
 #- ./gradlew test
