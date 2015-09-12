@@ -33,25 +33,21 @@ android:
     - extra-android-m2repository
     - addon-google_apis-google-$ANDROID_API_LEVEL
 
-    # System image (at least one is needed) for the emulator
+    # System image (at least one is needed) for the emulator. Others: sys-img-armeabi-v7a-android-21, sys-img-x86-android-17
     - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
-    #- sys-img-armeabi-v7a-android-21
-    #- sys-img-x86-android-17
 
 before_script:
-  # Clean everything (http://stackoverflow.com/questions/8267354/install-exception-device-not-found-android)
-  #- ./gradlew clean build
+  # Clean everything, to be sure
+  - ./gradlew clean build
   # Create and start emulator
   - echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"$ANDROID_API_LEVEL --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
-  #- ./ci/wait_for_emulator
-  #- adb wait-for-device
-  #- adb shell input keyevent 82 &
 
 script:
   - ./wait_for_emulator
+  # Connect and run the tests
   - ./gradlew connectedCheck -PdisablePreDex
   - ./gradlew --info connectedAndroidTest
 
-# run tests  against the JVM. See http://stackoverflow.com/questions/26643444/travis-ci-android-tests-with-gradle-keep-timing-out
-#- ./gradlew test
+  # run tests  against the JVM. See http://stackoverflow.com/questions/26643444/travis-ci-android-tests-with-gradle-keep-timing-out
+  #- ./gradlew test
