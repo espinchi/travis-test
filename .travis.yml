@@ -8,6 +8,10 @@ sudo: false
 
 env:
   global:
+    - ANDROID_API_LEVEL=21
+    - ANDROID_BUILD_TOOLS_VERSION=21.1.2
+    - ANDROID_ABI=google_apis/armeabi-v7a
+
     # In minutes. The default is 2
     - ADB_INSTALL_TIMEOUT=8
 
@@ -19,29 +23,29 @@ android:
     - tools
 
     # The BuildTools version used by your project
-    - build-tools-21.1.2
 
     # The SDK version used to compile your project
-    - android-21
+    - android-$ANDROID_API_LEVEL
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
 
     # Additional components
     - extra-android-support
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - addon-google_apis-google-21
+    - addon-google_apis-google-$ANDROID_API_LEVEL
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
+    - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
     #- sys-img-armeabi-v7a-android-21
     #- sys-img-x86-android-17
-    - sys-img-armeabi-v7a-addon-google_apis-google-21
 
 before_script:
   # Clean everything (http://stackoverflow.com/questions/8267354/install-exception-device-not-found-android)
   #- ./gradlew clean build
   # Create and start emulator
-  - echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"21 --abi google_apis/armeabi-v7a
+  - echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"$ANDROID_API_LEVEL --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   #- ./ci/wait_for_emulator
   #- adb wait-for-device
