@@ -7,8 +7,9 @@ cache: false
 sudo: false
 
 env:
-  # In minutes. The default is 2
-  - ADB_INSTALL_TIMEOUT=8
+  global:
+    # In minutes. The default is 2
+    - ADB_INSTALL_TIMEOUT=8
 
 android:
   components:
