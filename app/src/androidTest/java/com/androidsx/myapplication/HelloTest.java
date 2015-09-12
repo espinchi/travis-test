@@ -25,6 +25,7 @@ public class HelloTest extends ActivityInstrumentationTestCase2<GooglePlayServic
         assertEquals("ola ke ase", "ola ke ase");
     }
 
+    @Test
     public void testBar() {
         assertEquals("ola ke ase", "hola que haces");
     }
