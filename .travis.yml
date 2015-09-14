@@ -50,5 +50,5 @@ script:
   - ./gradlew connectedCheck -PdisablePreDex
   - ./gradlew --info connectedAndroidTest
 
-  # run tests  against the JVM. See http://stackoverflow.com/questions/26643444/travis-ci-android-tests-with-gradle-keep-timing-out
-  #- ./gradlew test
+  # Run plain JVM tests. LOL not really, it doesn't test shit
+  - ./gradlew test --continue
