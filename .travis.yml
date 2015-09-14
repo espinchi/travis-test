@@ -58,3 +58,7 @@ script:
 
   # Run plain JVM tests. LOL not really, it doesn't test shit
   - ./gradlew test --continue
+
+after_script:
+  # Distribute the debug version (!) to Fabric Beta. Make sure you update ext.betaDistributionReleaseNotes in the Gradle file
+  - ./gradlew assembleDebug crashlyticsUploadDistributionDebug
