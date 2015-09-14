@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# Originally written by Ralf Kistner <ralf@embarkmobile.com>, but placed in the public domain
+# Waits for the emulator to be up and running
+#
+# The default android-wait-for-emulator is too impatient and runs when
+# the emulator is created. This script waits until the emulator is
+# really ready to be used.
 
 set +e
 
