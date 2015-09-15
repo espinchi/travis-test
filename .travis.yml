@@ -1,5 +1,7 @@
 language: android
-jdk: oraclejdk8
+jdk:
+  - oraclejdk7
+  - oraclejdk8
 
 # Turn off caching to avoid any caching problems
 cache: false
@@ -38,7 +40,10 @@ android:
     - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
 
 before_script:
+  - export JAVA7_HOME=/usr/lib/jvm/java-7-oracle
   - export JAVA8_HOME=/usr/lib/jvm/java-8-oracle
+  - export JAVA_HOME=$JAVA8_HOME
+
   # Clean everything, to be sure
   - ./gradlew clean build
 
