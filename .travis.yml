@@ -45,14 +45,13 @@ before_script:
   - export JAVA8_HOME=/usr/lib/jvm/java-8-oracle
   - export JAVA_HOME=$JAVA8_HOME
 
-  # Clean everything, to be sure
-  - ./gradlew clean build
-
-  # Create and start emulator
-  - echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"$ANDROID_API_LEVEL --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
+  # Create and start emulator. DISABLED: see below
+  #- echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"$ANDROID_API_LEVEL --abi $ANDROID_ABI
+  #- emulator -avd test -no-skin -no-audio -no-window &
 
 script:
+  # Clean and rebuild
+  - ./gradlew clean build
 
   ## TESTS ARE DISABLED
   ##

@@ -32,8 +32,8 @@ android {
         applicationId "com.androidsx.myapplication"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 7
-        versionName "1.4.0"
+        versionCode 8
+        versionName "1.5.0"
 
         testApplicationId "com.androidsx.myapplication.test"
         //testInstrumentationRunner "android.test.InstrumentationTestRunner"
@@ -41,7 +41,7 @@ android {
     }
     buildTypes {
         debug {
-            ext.betaDistributionReleaseNotes="After disabling tests"
+            ext.betaDistributionReleaseNotes="Latest changes in travis config"
         }
         release {
             minifyEnabled false
