@@ -38,6 +38,7 @@ android:
     - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
 
 before_script:
+  - export JAVA8_HOME=/usr/lib/jvm/java-8-oracle
   # Clean everything, to be sure
   - ./gradlew clean build
 
