@@ -50,7 +50,7 @@ script:
   - ./ci/wait_for_emulator
 
   # To make sure we unlock the screen
-  - adb shell input keyevent 82 &
+  #- adb shell input keyevent 82 &
   
   # Connect and run the tests. TODO: are we running them twice?
   - ./gradlew connectedCheck -PdisablePreDex
