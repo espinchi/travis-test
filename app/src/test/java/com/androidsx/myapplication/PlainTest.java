@@ -11,9 +11,4 @@ public class PlainTest {
     public void passingTest() {
         assertEquals("hola", "hola");
     }
-
-    @Test
-    public void failingTest() {
-        assertEquals("ola", "hola");
-    }
 }
