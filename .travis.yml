@@ -44,12 +44,8 @@ before_script:
   - export JAVA8_HOME=/usr/lib/jvm/java-8-oracle
   - export JAVA_HOME=$JAVA8_HOME
 
-  # Create and start emulator. DISABLED: see below
-  #- echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"$ANDROID_API_LEVEL --abi $ANDROID_ABI
-  #- emulator -avd test -no-skin -no-audio -no-window &
-
 script:
-  # Clean and rebuild
+  # Clean and full rebuild
   - ./gradlew clean build
 
   ## TESTS ARE DISABLED
@@ -58,6 +54,10 @@ script:
   ## flaky even in a hello-world application (tested by Pablo in Sept 2015). Here's a more
   ## authoritative source: https://github.com/travis-ci/travis-ci/issues/3423
   ##
+  # Create and start emulator. DISABLED: see below
+  #- echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"$ANDROID_API_LEVEL --abi $ANDROID_ABI
+  #- emulator -avd test -no-skin -no-audio -no-window &
+  #
   # Wait for the emulator for $ADB_INSTALL_TIMEOUT minutes. Usually done with "adb wait-for-device"
   #- ./ci/wait_for_emulator
   #
@@ -66,11 +66,10 @@ script:
   #
   # Connect and run the tests.
   #- ./gradlew connectedCheck -PdisablePreDex
-  #- ./gradlew --info connectedAndroidTest
 
   # Run plain JVM tests
   - ./gradlew test --continue
 
 after_script:
-  # Distribute the debug version (!) to Fabric Beta. Make sure you update ext.betaDistributionReleaseNotes in the Gradle file
+  # Distribute the debug version to Fabric Beta. Make sure you update ext.betaDistributionReleaseNotes in the Gradle file
   - ./gradlew assembleDebug crashlyticsUploadDistributionDebug
