@@ -27,6 +27,6 @@ public class HelloTest extends ActivityInstrumentationTestCase2<GooglePlayServic
 
     @Test
     public void testBar() {
-        assertNotSame("ola ke ase", "hola que haces");
+        assertEquals("ola ke ase", "hola que haces");
     }
 }
