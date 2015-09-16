@@ -78,5 +78,5 @@ script:
   - ./gradlew test --continue
 
 after_script:
-  # Distribute the debug version to Fabric Beta. Make sure you update ext.betaDistributionReleaseNotes in the Gradle file
-  - ./gradlew assembleDebug crashlyticsUploadDistributionDebug
+  # Only from master: distribute the debug version to Fabric Beta. Make sure you update ext.betaDistributionReleaseNotes in the Gradle file
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then ./gradlew assembleDebug crashlyticsUploadDistributionDebug; fi

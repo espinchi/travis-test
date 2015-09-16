@@ -34,7 +34,7 @@ android {
         targetSdkVersion 22
         versionCode 11
         versionName "1.5.3"
-        ext.betaDistributionReleaseNotes="Branch x"
+        ext.betaDistributionReleaseNotes="Branch y"
 
         testApplicationId "com.androidsx.myapplication.test"
         //testInstrumentationRunner "android.test.InstrumentationTestRunner"
