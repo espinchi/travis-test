@@ -75,8 +75,8 @@ script:
   - ./gradlew connectedCheck -PdisablePreDex
 
   # Run plain JVM tests
-  #- ./gradlew test --continue
+  - ./gradlew test --continue
 
 after_script:
   # Distribute the debug version to Fabric Beta. Make sure you update ext.betaDistributionReleaseNotes in the Gradle file
-  #- ./gradlew assembleDebug crashlyticsUploadDistributionDebug
+  - ./gradlew assembleDebug crashlyticsUploadDistributionDebug
