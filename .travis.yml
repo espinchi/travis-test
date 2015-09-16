@@ -55,17 +55,19 @@ script:
   ## authoritative source: https://github.com/travis-ci/travis-ci/issues/3423
   ##
   # Create and start emulator. DISABLED: see below
+  - echo no | android create avd --force -n open-maps -t android-$ANDROID_API_LEVEL --abi $ANDROID_ABI
+  - emulator -avd open-maps -no-skin -no-audio -no-window &
   #- echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"$ANDROID_API_LEVEL --abi $ANDROID_ABI
   #- emulator -avd test -no-skin -no-audio -no-window &
   #
   # Wait for the emulator for $ADB_INSTALL_TIMEOUT minutes. Usually done with "adb wait-for-device"
-  #- ./ci/wait_for_emulator
+  - ./ci/wait_for_emulator
   #
   # To make sure we unlock the screen
   #- adb shell input keyevent 82 &
   #
   # Connect and run the tests.
-  #- ./gradlew connectedCheck -PdisablePreDex
+  - ./gradlew connectedCheck -PdisablePreDex
 
   # Run plain JVM tests
   #- ./gradlew test --continue
