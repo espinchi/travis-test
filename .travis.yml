@@ -75,8 +75,17 @@ script:
   - ./gradlew connectedCheck -PdisablePreDex
 
   # Run plain JVM tests
-  - ./gradlew test --continue
+  #- ./gradlew test --continue
 
 after_script:
   # Only from master: distribute the debug version to Fabric Beta. Make sure you update ext.betaDistributionReleaseNotes in the Gradle file
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then ./gradlew assembleDebug crashlyticsUploadDistributionDebug; fi
+  #- if [ "$TRAVIS_BRANCH" == "master" ]; then ./gradlew assembleDebug crashlyticsUploadDistributionDebug; fi
+
+after_success:
+  - echo "pablo - success!"
+
+after_failure:
+  - echo "pablo - failed!"
+
+deploy:
+  - echo "pablo - deploy"
