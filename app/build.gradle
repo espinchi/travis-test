@@ -20,8 +20,8 @@ repositories {
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -31,7 +31,7 @@ android {
     defaultConfig {
         applicationId "com.androidsx.myapplication"
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 10
         versionName "1.5.2"
 
