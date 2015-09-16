@@ -10,7 +10,6 @@ sudo: false
 
 env:
   global:
-    # So far, I have failed to run in API level 22. Didn't dare to even try 23
     - ANDROID_API_LEVEL=22
     - ANDROID_BUILD_TOOLS_VERSION=22.0.1
     - ANDROID_ABI=armeabi-v7a
@@ -87,6 +86,3 @@ after_success:
 
 after_failure:
   - echo "pablo - failed!"
-
-deploy:
-  - echo "pablo - deploy"
