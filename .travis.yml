@@ -1,6 +1,6 @@
 language: android
 jdk:
-  - oraclejdk8
+  - oraclejdk7
 
 # Turn off caching to avoid any caching problems
 cache: false
@@ -37,52 +37,38 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
-    #- addon-google_apis-google-$ANDROID_API_LEVEL
-
-    # System image for the emulator. x86 are not supported by Travis, unfortunately
+    # System image for the emulator. See http://docs.travis-ci.com/user/languages/android/
     - sys-img-armeabi-v7a-android-$ANDROID_API_LEVEL
 
-before_script:
-  # Set the JDK environment variables
+before_install:
+  # Set the JDK environment variables for both java-7 and java-8
   - export JAVA7_HOME=/usr/lib/jvm/java-7-oracle
   - export JAVA8_HOME=/usr/lib/jvm/java-8-oracle
-  - export JAVA_HOME=$JAVA8_HOME
+  - export JAVA_HOME=$JAVA7_HOME
+
+before_script:
+  # Build. In two steps because of an issue with retrolambda (see https://github.com/evant/gradle-retrolambda/issues/105)
+  # Otherwise, `./gradlew clean build` should just work
+  - ./gradlew prepareDebugDependencies
+  - ./gradlew assembleDebug
+
+  # Create an Android Virtual Device
+  - echo no | android create avd --force -n simple-emulator -t android-$ANDROID_API_LEVEL --abi $ANDROID_ABI
+
+  # Start the emulator (with no GUI: note the "-no-window")
+  - emulator -avd simple-emulator -no-skin -no-audio -no-window &
+
+  # Wait for the emulator for $ADB_INSTALL_TIMEOUT minutes. More commonly done with "adb wait-for-device"
+  - ./ci/wait_for_emulator
 
 script:
-  # Clean and full rebuild
-  - ./gradlew clean build
+  # Connect to the emulator and run the tests with the Android runner
+  #- ./gradlew connectedCheck
 
-  ## TESTS ARE DISABLED
-  ##
-  ## Tests on an emulator fail all the time for unknown reasons. The build is extremely
-  ## flaky even in a hello-world application (tested by Pablo in Sept 2015). Here's a more
-  ## authoritative source: https://github.com/travis-ci/travis-ci/issues/3423
-  ##
-  # Create and start emulator. DISABLED: see below
-  - echo no | android create avd --force -n open-maps -t android-$ANDROID_API_LEVEL --abi $ANDROID_ABI
-  - emulator -avd open-maps -no-skin -no-audio -no-window &
-  #- echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"$ANDROID_API_LEVEL --abi $ANDROID_ABI
-  #- emulator -avd test -no-skin -no-audio -no-window &
-  #
-  # Wait for the emulator for $ADB_INSTALL_TIMEOUT minutes. Usually done with "adb wait-for-device"
-  - ./ci/wait_for_emulator
-  #
-  # To make sure we unlock the screen
-  #- adb shell input keyevent 82 &
-  #
-  # Connect and run the tests.
-  - ./gradlew connectedCheck -PdisablePreDex
-
-  # Run plain JVM tests
-  #- ./gradlew test --continue
-
-after_script:
-  # Only from master: distribute the debug version to Fabric Beta. Make sure you update ext.betaDistributionReleaseNotes in the Gradle file
-  #- if [ "$TRAVIS_BRANCH" == "master" ]; then ./gradlew assembleDebug crashlyticsUploadDistributionDebug; fi
-  - echo "push to crashlytics"
+  # Run the plain JUnit tests too
+  - ./gradlew test --continue
 
 after_success:
-  - echo "pablo - success!"
-
-after_failure:
-  - echo "pablo - failed!"
+  # Only from master: distribute the debug version to Fabric Beta
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then ./gradlew assembleDebug crashlyticsUploadDistributionDebug; fi
+  - echo "Published the APK to Crashlytics"
