@@ -15,7 +15,7 @@ env:
     - ANDROID_ABI=armeabi-v7a
 
     # Timeout for the emulator to start. In minutes. The default is 2, which is often not enough
-    - ADB_INSTALL_TIMEOUT=8
+    - ADB_INSTALL_TIMEOUT=1
 
 android:
   components:
