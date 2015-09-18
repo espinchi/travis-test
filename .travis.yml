@@ -1,6 +1,6 @@
 language: android
 jdk:
-  - oraclejdk8
+  - oraclejdk7
 
 # Turn off caching to avoid any caching problems
 cache: false
@@ -48,7 +48,6 @@ before_install:
 
 before_script:
   # Build. In two steps because of an issue with retrolambda (see https://github.com/evant/gradle-retrolambda/issues/105)
-  # Otherwise, `./gradlew clean build` should just work
   - ./gradlew prepareDebugDependencies
   - ./gradlew assembleDebug
 
@@ -63,7 +62,7 @@ before_script:
 
 script:
   # Connect to the emulator and run the tests with the Android runner
-  #- ./gradlew connectedCheck
+  - ./gradlew connectedCheck
 
   # Run the plain JUnit tests too
   - ./gradlew test --continue
