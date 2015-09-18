@@ -29,4 +29,19 @@ public class HelloTest extends ActivityInstrumentationTestCase2<GooglePlayServic
     public void testBar() {
         assertNotSame("ola ke ase", "hola que haces");
     }
+
+    @Test
+    public void testFailingOne() {
+        assertEquals("one", "1");
+    }
+
+    @Test
+    public void testFailingTwo() {
+        assertEquals("two", "2");
+    }
+
+    @Test
+    public void testPassingThree() {
+        assertEquals("three", "three");
+    }
 }
