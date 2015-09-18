@@ -71,3 +71,8 @@ after_success:
   # Only from master: distribute the debug version to Fabric Beta
   - if [ "$TRAVIS_BRANCH" == "master" ]; then ./gradlew assembleDebug crashlyticsUploadDistributionDebug; fi
   - echo "Published the APK to Crashlytics"
+
+after_failure:
+  - echo "After failure"
+  - pwd
+  - cat travis-test/app/build/reports/androidTests/connected/index.html
