@@ -7,18 +7,11 @@ import android.test.suitebuilder.annotation.SmallTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotSame;
+
 @RunWith(AndroidJUnit4.class)
-@SmallTest
-public class HelloTest extends ActivityInstrumentationTestCase2<GooglePlayServicesActivity> {
-
-    public HelloTest() {
-        super(GooglePlayServicesActivity.class);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
+public class HelloTest {
 
     @Test
     public void testFoo() {
